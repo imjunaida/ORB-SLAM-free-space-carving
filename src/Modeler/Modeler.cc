@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <include/Modeler/Modeler.h>
+#include <boost/filesystem.hpp>
 
 /// Function prototype for DetectEdgesByED exported by EDLinesLib.a
 LS *DetectLinesByED(unsigned char *srcImg, int width, int height, int *pNoLines);
@@ -51,14 +52,29 @@ namespace ORB_SLAM2 {
     void Modeler::Run()
     {
         mbFinished =false;
-
+        struct timespec start, finish;
+        double duration;
         while(1) {
 
             if (CheckNewTranscriptEntry()) {
-
+                clock_gettime(CLOCK_MONOTONIC,&start);
                 RunRemainder();
 
                 UpdateModelDrawer();
+                clock_gettime(CLOCK_MONOTONIC,&finish);
+                duration =(finish.tv_sec -start.tv_sec);
+                duration +=(finish.tv_nsec - start.tv_nsec)/1000000000.0;
+                duration *= 1000;
+                std::cout<<"Time taken for modelling "<<duration<<std::endl;
+                boost::filesystem::path dir("ObjectFiles");
+                boost::filesystem::path objfile= boost::filesystem::current_path()/dir;
+                if( ! boost::filesystem::exists(objfile) && ! boost::filesystem::create_directories(objfile) ){
+                 std::cerr << "Failed to create directory: " << objfile << std::endl;
+                 continue;}
+                 std::string strFileName("ObjectFiles/model.obj");
+                 std::string strFinalFilename("ObjectFiles/finalmodel.obj");
+                 WriteModel(strFileName);
+                 boost::filesystem::copy_file(strFileName, strFinalFilename,boost::filesystem::copy_option::overwrite_if_exists);                
             }
 //            else {
 //
@@ -1565,6 +1581,11 @@ namespace ORB_SLAM2 {
 
         return im;
     }
+
+    void Modeler::WriteModel(std::string filename)
+{
+    mAlgInterface.writeCurrentModelToFile(filename);
+}
 
 
 

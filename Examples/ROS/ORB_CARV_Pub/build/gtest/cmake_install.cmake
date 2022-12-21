@@ -1,4 +1,4 @@
-# Install script for directory: /usr/src/gmock
+# Install script for directory: /usr/src/googletest
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -32,9 +32,14 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
   set(CMAKE_INSTALL_SO_NO_EXE "1")
 endif()
 
+# Is this installation the result of a crosscompile?
+if(NOT DEFINED CMAKE_CROSSCOMPILING)
+  set(CMAKE_CROSSCOMPILING "FALSE")
+endif()
+
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/chris/catkin_ws/src/long_range_teleoperation/robot-side/2_ORB_SLAM_Pub/Examples/ROS/ORB_CARV_Pub/build/gtest/gtest/cmake_install.cmake")
+  include("/home/junaid_ia/ORB-SLAM-free-space-carving-master/Examples/ROS/ORB_CARV_Pub/build/gtest/googlemock/cmake_install.cmake")
 
 endif()
 

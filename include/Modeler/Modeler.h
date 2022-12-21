@@ -153,6 +153,7 @@ namespace ORB_SLAM2 {
         cv::Mat GetImageWithLines();
 
         void writeToFile(const std::string & strFileName) const;
+        void WriteModel(std::string filename);
 
     public:
         void ResetIfRequested();

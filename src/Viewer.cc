@@ -170,7 +170,7 @@ namespace ORB_SLAM2
 
             d_map.Activate(s_map);
             glClearColor(1.0f,1.0f,1.0f,1.0f);
-            mpMapDrawer->DrawCurrentCamera(MapTwc);
+           // mpMapDrawer->DrawCurrentCamera(MapTwc);
             if(menuShowKeyFrames || menuShowGraph)
                 mpMapDrawer->DrawKeyFrames(menuShowKeyFrames,menuShowGraph);
             if(menuShowPoints) {
@@ -183,12 +183,13 @@ namespace ORB_SLAM2
             // carv: show model or triangle with light from camera
             if(menuShowModel && menuShowTexture) {
                 mpModelDrawer->DrawModel(mbRGB);
+		        mpModelDrawer->DrawTriangles(MapTwc);
             }
             else if (menuShowModel && !menuShowTexture) {
                 mpModelDrawer->DrawTriangles(MapTwc);
             }
             else if (!menuShowModel && menuShowTexture) {
-                mpModelDrawer->DrawFrame(mbRGB);
+                mpModelDrawer->DrawModel(mbRGB);
             }
             if(menuSaveCARV)
             {
@@ -239,8 +240,8 @@ namespace ORB_SLAM2
                 }
             }
 
-            if(CheckFinish())
-                break;
+            //if(CheckFinish())
+                //break;
         }
 
         SetFinish();

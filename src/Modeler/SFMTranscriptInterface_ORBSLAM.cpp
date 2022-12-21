@@ -245,6 +245,7 @@ void SFMTranscriptInterface_ORBSLAM::addKeyFrameInsertionEntry(KeyFrame *k){
         // Process new points and visibility information in this KF
         std::set<int> sVisListExcludingNewPoints;
         std::set<MapPoint*> mvpMapPoints = k->GetMapPoints();
+	std::cout<<"Size of Mappoints "<<mvpMapPoints.size()<<std::endl;
         for(std::set<MapPoint*>::iterator it = mvpMapPoints.begin(); it != mvpMapPoints.end(); it++){
             MapPoint * point = *it;
             if(point->isBad())

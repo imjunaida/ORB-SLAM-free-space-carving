@@ -150,7 +150,7 @@ namespace ORB_SLAM2
         glEnable(GL_LIGHTING);
         glEnable(GL_LIGHT0);
 
-        glShadeModel(GL_FLAT);
+        //glShadeModel(GL_FLAT);
 
         GLfloat material_diffuse[] = {0.2, 0.5, 0.8, 1};
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material_diffuse);
